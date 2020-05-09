@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER = credentials('DockerHub')
+    }
+
     stages {
 
         stage('Checkout'){
@@ -29,7 +33,9 @@ pipeline {
                 def server = docker.build("multi-server", "./server")
                 def worker = docker.build("multi-worker", "./worker") 
 
-                client.push()
+                    withDockerRegistry(credentialsId: 'DockerHub', url: 'registry.hub.docker.com/') {
+                        client.push()
+                    }
                 }
             }
         }
