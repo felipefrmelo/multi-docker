@@ -33,7 +33,7 @@ pipeline {
                 def server = docker.build("felipefrmelo/multi-server", "./server")
                 def worker = docker.build("felipefrmelo/multi-worker", "./worker") 
 
-                 withDockerRegistry(credentialsId: 'aws', url: '663375400923.dkr.ecr.sa-east-1.amazonaws.com'){
+                 docker.withRegistry('https://663375400923.dkr.ecr.us-east-1.amazonaws.com/multi-docker', 'ecr:us-east-1:AWS_CRED'){
                         nginx.push()
                         server.push()
                         worker.push()
