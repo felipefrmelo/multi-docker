@@ -1,21 +1,25 @@
 pipeline {
-    agent none 
-    checkout([ $class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Github', url: 'https://github.com/felipefrmelo/multi-docker/settings/hooks/209556755']]])
+    agent any
     stages {
-        stage('Example Build') {
-            def dockerfile = 'Dockerfile.dev'
-            def testImage = docker.build("test-image", "-f ${dockerfile} ./client") 
-            testImage.inside {
-                sh 'npm run test'
+        stage('Example Username/Password') {
+            environment {
+                SERVICE_CREDS = credentials('DockerHub')
             }
-          
-        }
-        stage('Example Test') {
             steps {
-                echo 'Hello, JDK'
-                sh 'java -version'
+                sh 'echo "Service user is $SERVICE_CREDS_USR"'
+                sh 'echo "Service password is $SERVICE_CREDS_PSW"'
+                sh 'curl -u $SERVICE_CREDS https://myservice.example.com'
+            }
+        }
+        stage('Example Username/Password') {
+            environment {
+                SSH_CREDS = credentials('my-predefined-ssh-creds')
+            }
+            steps {
+                sh 'echo "SSH private key is located at $SSH_CREDS"'
+                sh 'echo "SSH user is $SSH_CREDS_USR"'
+                sh 'echo "SSH passphrase is $SSH_CREDS_PSW"'
             }
         }
     }
 }
-
