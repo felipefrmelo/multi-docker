@@ -20,19 +20,19 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     steps{
-        //         script{
+        stage('build and publish') {
+            steps{
+                script{
 
-        //         def dockerfile = 'Dockerfile.dev'
-        //         def testImage = docker.build("test-image", "-f ${dockerfile} ./client") 
+                def client = docker.build("multi-client", "./client")
+                def nginx = docker.build("multi-nginx", "./nginx")
+                def server = docker.build("multi-server", "./server")
+                def worker = docker.build("multi-worker", "./worker") 
 
-        //         testImage.inside {
-        //             sh 'npm run test'
-        //         }
-        //         }
-        //     }
-        // }
+                client.push()
+                }
+            }
+        }
         
     }
 }
