@@ -3,7 +3,9 @@ pipeline {
     stages {
 
         stage('Checkout'){
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Github', url: 'https://github.com/felipefrmelo/multi-docker']]])
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Github', url: 'https://github.com/felipefrmelo/multi-docker']]])
+            }
         }
 
         stage('Example Username/Password') {
