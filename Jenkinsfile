@@ -29,10 +29,10 @@ pipeline {
                 script{
                 def  felipefrmelo = "663375400923.dkr.ecr.us-east-1.amazonaws.com"
                 
-                def client = docker.build("${felipefrmelo}/multi-client", "./client")
-                def nginx = docker.build("${felipefrmelo}/multi-nginx", "./nginx")
-                def server = docker.build("${felipefrmelo}/multi-server", "./server")
-                def worker = docker.build("${felipefrmelo}/multi-worker", "./worker") 
+                def client = docker.build("multi-client", "./client")
+                def nginx = docker.build("multi-nginx", "./nginx")
+                def server = docker.build("multi-server", "./server")
+                def worker = docker.build("multi-worker", "./worker") 
 
                  docker.withRegistry("https://${felipefrmelo}/multi-docker", 'ecr:us-east-1:AWS_CRED'){
                         nginx.push()
