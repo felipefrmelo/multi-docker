@@ -27,7 +27,7 @@ pipeline {
         stage('build and publish') {
             steps{
                 script{
-                def = felipefrmelo = "663375400923.dkr.ecr.us-east-1.amazonaws.com"
+                def  felipefrmelo = "663375400923.dkr.ecr.us-east-1.amazonaws.com"
                 def client = docker.build("${felipefrmelo}/multi-client", "./client")
                 def nginx = docker.build("${felipefrmelo}/multi-nginx", "./nginx")
                 def server = docker.build("${felipefrmelo}/multi-server", "./server")
