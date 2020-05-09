@@ -1,7 +1,11 @@
 pipeline {
     agent any
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Github', url: 'https://github.com/felipefrmelo/multi-docker']]])
     stages {
+
+        stage('Checkout'){
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Github', url: 'https://github.com/felipefrmelo/multi-docker']]])
+        }
+
         stage('Example Username/Password') {
             environment {
                 SERVICE_CREDS = credentials('Github')
