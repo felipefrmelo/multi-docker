@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Github', url: 'https://github.com/felipefrmelo/multi-docker']]])
     stages {
         stage('Example Username/Password') {
             environment {
