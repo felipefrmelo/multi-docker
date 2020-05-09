@@ -28,7 +28,7 @@ pipeline {
             steps{
                 script{
 
-            withDockerRegistry(credentialsId: 'DockerHub', url: 'registry.hub.docker.com/') {
+            withDockerRegistry(credentialsId: 'DockerHub') {
                 def client = docker.build("multi-client", "./client")
                 def nginx = docker.build("multi-nginx", "./nginx")
                 def server = docker.build("multi-server", "./server")
