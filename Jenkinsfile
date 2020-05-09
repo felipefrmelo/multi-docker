@@ -28,12 +28,12 @@ pipeline {
             steps{
                 script{
 
-            withDockerRegistry(credentialsId: 'DockerHub') {
                 def client = docker.build("felipefrmelo/multi-client", "./client")
                 def nginx = docker.build("felipefrmelo/multi-nginx", "./nginx")
                 def server = docker.build("felipefrmelo/multi-server", "./server")
                 def worker = docker.build("felipefrmelo/multi-worker", "./worker") 
 
+                 withDockerRegistry(credentialsId: 'aws', url: '663375400923.dkr.ecr.sa-east-1.amazonaws.com'){
                         nginx.push()
                         server.push()
                         worker.push()
