@@ -4,16 +4,20 @@ pipeline {
     stages {
 
         stage('Checkout'){
-            checkout scm
+            steps {
+                checkout scm
+            }
            
         }
 
         stage('Test') {
-            def dockerfile = 'Dockerfile.dev'
-            def testImage = docker.build("test-image", "-f ${dockerfile} ./client") 
+            steps{
+                def dockerfile = 'Dockerfile.dev'
+                def testImage = docker.build("test-image", "-f ${dockerfile} ./client") 
 
-            testImage.inside {
-                sh 'npm run test'
+                testImage.inside {
+                    sh 'npm run test'
+                }
             }
         }
         
