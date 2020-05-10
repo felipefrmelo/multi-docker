@@ -43,6 +43,13 @@ pipeline {
                 }
             }
         }
+
+        stage('build and publish') {
+            steps{
+               
+                step([$class: 'AWSEBDeploymentBuilder', bucketName: 'elasticbeanstalk-us-east-1-663375400923', credentialId: 'ecr:us-east-1:AWS_CRED', environmentName: 'MultiDocker-env', versionLabelFormat: '${GIT_COMMIT}', applicationName: 'multi-docker'])
+            }
+        }
         
     }
 }
